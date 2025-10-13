@@ -1,6 +1,7 @@
-const pool = require('../connect/ConnectDatabase')
-const serviceSqlCrud = require('../service/ServiceSqlCrud')
-const logger = require('../log/Logging')
+const pool = require('../connect/connect-database')
+const serviceSqlCrud = require('../service/service-sql-statement')
+const logger = require('../log/logging')
+
 class Crud {
     reads = () => {
         return new Promise((resolve, reject) => {
@@ -40,9 +41,9 @@ class Crud {
         }) // ended returns
     }
 
-    update = (bookName , bookPrice, bookSale , id) => {
+    update = (name , price, productiondate , id) => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.update ,[bookName , bookPrice, bookSale , id], (error, result) => {
+            pool.query(serviceSqlCrud.update ,[name , price, productiondate , id], (error, result) => {
                 if (error) {
                     logger.debug('found some error from update async maybe id of book is not alive : '+reject(`${error.message}`))
                     throw error
@@ -68,9 +69,9 @@ class Crud {
         }) // ended returns
     }
 
-    create = (bookName , bookPrice, bookSale) => {
+    create = (name , price, productiondate) => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.create ,[bookName , bookPrice, bookSale], (error, result) => {
+            pool.query(serviceSqlCrud.create ,[name , price, productiondate], (error, result) => {
                 if (error) {
                     logger.debug('found some error from create async maybe id of book is not alive : '+reject(`${error.message}`))
                     throw error

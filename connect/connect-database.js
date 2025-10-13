@@ -1,8 +1,8 @@
 const dotenv = require('dotenv')  // good module
 const path = require('path')
-const logger = require('../log/Logging')
-// connect my .env file
-dotenv.config({path: path.join(__filename, '../../env/.env')}) // remember name key shouldn't be like syntax of env file as USERNAME , ...
+const logger = require('../log/logging')
+// if you use __filename , it will start on this file
+dotenv.config({path: path.join(__filename, '../../env/.env'),debug: true}) // remember name key shouldn't be like syntax of env file as USERNAME , ...
 
 class ConnectDatabase {
     #infoDB = {
@@ -33,12 +33,9 @@ class ConnectDatabase {
 
 module.exports = new ConnectDatabase().pool
 
-
-/*
-
+/**
 const connectDatabase = new ConnectDatabase();
 const pool = connectDatabase.pool
-
 pool.getConnection((err, connection) => {
     if (err) {
         logger.debug("connect with pooling failed : " + err.message)
@@ -46,7 +43,6 @@ pool.getConnection((err, connection) => {
     }
     else logger.silly("connected")
 })
-
 */
 
 

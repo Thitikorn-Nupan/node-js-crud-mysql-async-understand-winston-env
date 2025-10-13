@@ -1,9 +1,11 @@
 const {createLogger,format,transports} = require('winston')
 class Logging {
     #path
+
     constructor() {
         this.#path = require('path')
     }
+
     get logger() { // this function return Logger class
         return createLogger({
             level: 'silly',
