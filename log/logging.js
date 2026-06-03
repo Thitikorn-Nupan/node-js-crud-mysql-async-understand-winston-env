@@ -1,5 +1,7 @@
-const {createLogger,format,transports} = require('winston')
+const {createLogger, format, transports} = require('winston')
+
 class Logging {
+
     #path
 
     constructor() {
@@ -21,6 +23,7 @@ class Logging {
             // this is order logger { error: 0, warn: 1, info: 2, verbose: 3, debug: 4, silly: 5 }
         })
     }
+
 }
 
 module.exports = new Logging().logger

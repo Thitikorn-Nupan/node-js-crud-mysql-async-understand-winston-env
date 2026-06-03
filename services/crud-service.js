@@ -1,20 +1,20 @@
-const pool = require('../connect/connect-database')
-const serviceSqlCrud = require('../service/service-sql-statement')
+const pool = require('../connect/database-connect')
 const logger = require('../log/logging')
+const sqlCrudService = require('./sql-statement-service')
 
-class Crud {
+class CrudService {
+
     reads = () => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.reads , (error, results) => {
+            pool.query(sqlCrudService.reads, (error, results) => {
                 if (error) {
-                    logger.debug('found some error from reads async maybe the results are returned null : '+reject(`${error.message}`))
+                    logger.debug('found some error from reads async maybe the results are returned null : ' + reject(`${error.message}`))
                     throw error
-                }
-                else {
+                } else {
                     return resolve({
                         status: 202,
-                        message : 'accepted' ,
-                        books : results
+                        message: 'accepted',
+                        books: results
                     })
                 }
             }) // ended query
@@ -23,44 +23,42 @@ class Crud {
 
     read = (id) => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.read ,[id], (error, result) => {
+            pool.query(sqlCrudService.read, [id], (error, result) => {
                 if (error) {
-                    logger.debug('found some error from read async maybe id of book is not alive : '+reject(`${error.message}`))
+                    logger.debug('found some error from read async maybe id of book is not alive : ' + reject(`${error.message}`))
                     throw error
-                }
-                else {
+                } else {
                     // logger.info('result return : '+result) // result return : [object Object]
                     // console.log(result) // using console.log can see the object
                     return resolve({
                         status: 202,
-                        message : 'accepted' ,
-                        book : result
+                        message: 'accepted',
+                        book: result
                     })
                 }
             }) // ended query
         }) // ended returns
     }
 
-    update = (name , price, productiondate , id) => {
+    update = (name, price, productiondate, id) => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.update ,[name , price, productiondate , id], (error, result) => {
+            pool.query(sqlCrudService.update, [name, price, productiondate, id], (error, result) => {
                 if (error) {
-                    logger.debug('found some error from update async maybe id of book is not alive : '+reject(`${error.message}`))
+                    logger.debug('found some error from update async maybe id of book is not alive : ' + reject(`${error.message}`))
                     throw error
-                }
-                else {
+                } else {
                     // logger.info('result return : '+result) // result return : [object Object]
                     // console.log(result) // using console.log can see the object
                     if (result.affectedRows === 0) {
                         return resolve({
                             status: 202,
-                            message : 'accepted' ,
-                            book : `there were no book id ${id} for updating`
+                            message: 'accepted',
+                            book: `there were no book id ${id} for updating`
                         })
                     } else {
                         return resolve({
                             status: 202,
-                            message : 'accepted' ,
+                            message: 'accepted',
                             book: result
                         })
                     }
@@ -69,20 +67,19 @@ class Crud {
         }) // ended returns
     }
 
-    create = (name , price, productiondate) => {
+    create = (name, price, productiondate) => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.create ,[name , price, productiondate], (error, result) => {
+            pool.query(sqlCrudService.create, [name, price, productiondate], (error, result) => {
                 if (error) {
-                    logger.debug('found some error from create async maybe id of book is not alive : '+reject(`${error.message}`))
+                    logger.debug('found some error from create async maybe id of book is not alive : ' + reject(`${error.message}`))
                     throw error
-                }
-                else {
+                } else {
                     // logger.info('result return : '+result) // result return : [object Object]
                     // console.log(result) // using console.log can see the object
                     return resolve({
                         status: 201,
-                        message : 'created' ,
-                        book : result
+                        message: 'created',
+                        book: result
                     })
                 }
             }) // ended query
@@ -91,20 +88,19 @@ class Crud {
 
     delete = (id) => {
         return new Promise((resolve, reject) => {
-            pool.query(serviceSqlCrud.delete ,[id], (error, result) => {
+            pool.query(sqlCrudService.delete, [id], (error, result) => {
                 if (error) {
-                    logger.debug('found some error from delete async maybe id of book is not alive : '+reject(`${error.message}`))
+                    logger.debug('found some error from delete async maybe id of book is not alive : ' + reject(`${error.message}`))
                     throw error
-                }
-                else {
+                } else {
                     // logger.info('result return : '+result) // result return : [object Object]
                     // console.log(result) // using console.log can see the object
                     if (result.affectedRows === 0) {
-                    return resolve({
-                        status: 200,
-                        message : 'ok' ,
-                        book : `there were no book id ${id} for deleting`
-                    })
+                        return resolve({
+                            status: 200,
+                            message: 'ok',
+                            book: `there were no book id ${id} for deleting`
+                        })
                     } else {
                         return resolve({
                             status: 200,
@@ -118,5 +114,5 @@ class Crud {
     }
 }
 
-module.exports = Crud
+module.exports = CrudService
 

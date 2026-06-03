@@ -1,6 +1,6 @@
-const serviceRestModules = require('../service/service-rest-modules'), ServiceRestModules = new serviceRestModules()
+const serviceRestModules = require('../services/rest-modules-service'), ServiceRestModules = new serviceRestModules()
 const logger = require('../log/logging')
-const routerBookStore = require('../router/router-book')
+const routerBookStore = require('../router/book-router')
 
 class Runner {
     #bodyParser
@@ -9,18 +9,14 @@ class Runner {
     constructor() {
         this.#bodyParser = ServiceRestModules.bodyParser
         this.#application = ServiceRestModules.express()
-    }
-
-    get main() {
-        this.#application.use('/api',routerBookStore).listen( 3000 , error => {
+        this.#application.use('/api', routerBookStore).listen(3000, error => {
             if (error) {
-                logger.debug('the problem has had in port 3000 : '+error.message)
-            }
-            else {
+                logger.debug('the problem has had in port 3000 : ' + error.message)
+            } else {
                 logger.silly('you are in port 3000')
             }
         })
     }
 }
 
-new Runner().main
+new Runner()

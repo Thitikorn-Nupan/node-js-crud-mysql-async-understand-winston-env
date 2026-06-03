@@ -1,4 +1,4 @@
-class ServiceSqlStatement {
+class SqlStatementService {
     static reads = 'select * from books_2 ;'
     static read = 'select * from books_2 where id = ? ;'
     static create = 'insert into books_2 (name,price,productiondate) values(?,?,?) ;'
@@ -6,4 +6,4 @@ class ServiceSqlStatement {
     static update = 'update books_2 set name = ? , price = ? , productiondate = ? where id = ? ;'
 }
 
-module.exports = ServiceSqlStatement
+module.exports = SqlStatementService
