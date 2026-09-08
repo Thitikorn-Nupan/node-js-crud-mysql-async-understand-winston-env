@@ -3,13 +3,9 @@ const logger = require('../log/logging')
 const routerBookStore = require('../router/book-router')
 
 class Runner {
-    #bodyParser
-    #application
-
     constructor() {
-        this.#bodyParser = ServiceRestModules.bodyParser
-        this.#application = ServiceRestModules.express()
-        this.#application.use('/api', routerBookStore).listen(3000, error => {
+        const application = ServiceRestModules.express()
+        application.use('/api', routerBookStore).listen(3000, error => {
             if (error) {
                 logger.debug('the problem has had in port 3000 : ' + error.message)
             } else {
