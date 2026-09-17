@@ -9,12 +9,12 @@ const { beforeEach, describe, expect,  jest: commonJest, test } = require('@jest
 
 // Replace the logger methods used by CrudService so the test does not create
 // Winston transports or write log output while testing service behavior.
-commonJest.mock('../log/logging', () => ({
-    logger: {
-        debug: commonJest.fn(),
-        warn: commonJest.fn(),
-    },
-}));
+// commonJest.mock('../log/logging', () => ({
+//     logger: {
+//         debug: commonJest.fn(),
+//         warn: commonJest.fn(),
+//     },
+// }));
 
 // Jest unit tests isolate the service from MySQL by mocking the database pool.
 commonJest.mock('../connect/database-connect', () => ({

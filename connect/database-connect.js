@@ -1,7 +1,10 @@
 const dotenv = require('dotenv')  // good module
 const path = require('path')
 const mysql = require('mysql2')
-const logger = require('../log/logging')
+const filename = path.basename(__filename);
+const {createLogger} = require('../log/logging-v2')
+
+const logger = createLogger(filename);
 
 // if you use __filename , it will start on this file
 dotenv.config({path: path.join(__filename, '../../env/.env'), debug: true}) // remember name key shouldn't be like syntax of env file as USERNAME , ...

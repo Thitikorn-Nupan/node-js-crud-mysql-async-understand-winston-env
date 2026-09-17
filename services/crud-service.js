@@ -1,6 +1,10 @@
 const pool = require('../connect/database-connect')
-const logger = require('../log/logging')
 const sqlCrudService = require('./sql-statement-service')
+const path = require('path')
+const filename = path.basename(__filename);
+const {createLogger} = require('../log/logging-v2')
+
+const logger = createLogger(filename);
 
 class CrudService {
 

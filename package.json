@@ -13,6 +13,8 @@
   ],
   "scripts": {
     "test": "jest",
+    "test:service": "jest test/crud-service.test.js",
+    "start:connect": "node connect/database-connect.js",
     "start": "node run/runner.js"
   },
   "keywords": [],
